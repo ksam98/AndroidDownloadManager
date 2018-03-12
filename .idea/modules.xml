@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidDownloadManager.iml" filepath="$PROJECT_DIR$/AndroidDownloadManager.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DownloadURLSample.iml" filepath="$PROJECT_DIR$/DownloadURLSample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\ADMIN\AndroidStudioProjects\AndroidDownloadManager\DownloadURLSample.iml" filepath="C:\Users\ADMIN\AndroidStudioProjects\AndroidDownloadManager\DownloadURLSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
