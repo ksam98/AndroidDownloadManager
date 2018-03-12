@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            Uri music_uri = Uri.parse("http://www.androidtutorialpoint.com/wp-content/uploads/2016/09/AndroidDownloadManager.mp3");
+            Uri music_uri = Uri.parse(aurl[0]);
 
             long Music_DownloadId = DownloadData(music_uri);
 
@@ -206,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Set the local destination for the downloaded file to a path within the application's external files directory
        // if(v.getId() == R.id.DownloadMusic)
-            request.setDestinationInExternalFilesDir(MainActivity.this, Environment.DIRECTORY_DOWNLOADS,"AndroidTutorialPoint.mp3");
+            request.setDestinationInExternalFilesDir(MainActivity.this, Environment.DIRECTORY_DOWNLOADS,"doesn'twork.mp3");
         //else if(v.getId() == R.id.DownloadImage)
          //   request.setDestinationInExternalFilesDir(MainActivity.this, Environment.DIRECTORY_DOWNLOADS,"AndroidTutorialPoint.jpg");
 
