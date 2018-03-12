@@ -1,6 +1,8 @@
 package com.example.admin.downloadurlsample;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +14,20 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
@@ -26,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText urlBox;
     Button downloadButton;
+
+    DownloadManager downloadManager;
 
     private static final int DIALOG_DOWNLOAD_PROGRESS = 0;
     private static final String TAG = "Http Connection Status";
@@ -52,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void startDownload(String url){
@@ -69,18 +79,54 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute(){
             super.onPreExecute();
             //TODO: implement a progressBar/ProgressDialog
+
         }
 
         @Override
         protected  String doInBackground(String... aurl){
             InputStream input = null;
             OutputStream output = null;
+
+
+
+            Uri music_uri = Uri.parse("http://www.androidtutorialpoint.com/wp-content/uploads/2016/09/AndroidDownloadManager.mp3");
+
+            long Music_DownloadId = DownloadData(music_uri);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            /*
+
             HttpURLConnection connection = null;
             try {
                 URL url = new URL(aurl[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
+                System.out.println("Before connection");
                 // expect HTTP 200 OK, so we don't mistakenly save error report
                 // instead of the file
                 if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -92,12 +138,13 @@ public class MainActivity extends AppCompatActivity {
                 // might be -1: server did not report the length
                 int fileLength = connection.getContentLength();
 
+                System.out.println("Before opening input stream");
+
                 // download the file
                 input = connection.getInputStream();
-
                 System.out.println("Before opening output stream");
 
-                output = new FileOutputStream("/root/sdcard/song1.mp3");
+                output = new FileOutputStream("/new.mp3");
 
                 System.out.println("After opening the output stream");
 
@@ -133,9 +180,46 @@ public class MainActivity extends AppCompatActivity {
                     connection.disconnect();
             }
             return null;
+            */
+
+            return null;
         }
 
 
+
+    }
+
+    private long DownloadData (Uri uri) {
+
+        long downloadReference;
+
+        // Create request for android download manager
+        downloadManager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        //Setting title of request
+        request.setTitle("Data Download");
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+
+        //Setting description of request
+        request.setDescription("Android Data download using DownloadManager.");
+
+        //Set the local destination for the downloaded file to a path within the application's external files directory
+       // if(v.getId() == R.id.DownloadMusic)
+            request.setDestinationInExternalFilesDir(MainActivity.this, Environment.DIRECTORY_DOWNLOADS,"AndroidTutorialPoint.mp3");
+        //else if(v.getId() == R.id.DownloadImage)
+         //   request.setDestinationInExternalFilesDir(MainActivity.this, Environment.DIRECTORY_DOWNLOADS,"AndroidTutorialPoint.jpg");
+
+        //Enqueue download and save into referenceId
+        downloadReference = downloadManager.enqueue(request);
+
+        /*
+        Button DownloadStatus = (Button) findViewById(R.id.DownloadStatus);
+        DownloadStatus.setEnabled(true);
+        Button CancelDownload = (Button) findViewById(R.id.CancelDownload);
+        CancelDownload.setEnabled(true);
+        */
+        return downloadReference;
     }
 }
 
